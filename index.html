@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Copy caption</title><style>
+body{font-family:-apple-system,system-ui,sans-serif;margin:16px;background:#111;color:#eee}
+#t{white-space:pre-wrap;background:#222;padding:14px;border-radius:12px;font-size:17px;line-height:1.4}
+a,button{display:block;width:100%;box-sizing:border-box;margin:14px 0;padding:18px;border:0;border-radius:14px;font-size:20px;font-weight:600;text-align:center;text-decoration:none}
+button{background:#2ea44f;color:#fff}a{background:#1d9bf0;color:#fff}#ok{text-align:center;color:#2ea44f;min-height:1.2em}
+</style></head><body>
+<div id="t"></div><button id="c">Copy caption</button><div id="ok"></div><a id="x" href="#">Open post in X</a>
+<script>
+var p=new URLSearchParams(location.hash.slice(1)),t=p.get("t")||"",u=p.get("u")||"";
+document.getElementById("t").textContent=t;
+var x=document.getElementById("x");if(/^https:\/\/(x|twitter)\.com\//.test(u))x.href=u;else x.style.display="none";
+document.getElementById("c").onclick=function(){
+ function done(){document.getElementById("ok").textContent="Copied ✓";}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else fb();
+ function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();a.setSelectionRange(0,99999);document.execCommand("copy");a.remove();done();}
+};
+</script></body></html>
